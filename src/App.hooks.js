@@ -1,9 +1,9 @@
 import React, { useReducer } from "react";
+import AppContext from "./AppContext";
 import Box from "./Box";
-import AppContext from './AppContext';
 
 function reducer(state, action) {
-  if (action === 'toggle') {
+  if (action === "toggle") {
     return !state;
   }
   throw new Error();
@@ -12,10 +12,19 @@ function reducer(state, action) {
 function App() {
   const [isYellow, dispatch] = useReducer(reducer, true);
 
+  // This is actually useless
+  const value = React.useMemo(
+    () => ({
+      isYellow,
+      dispatch
+    }),
+    [isYellow, dispatch]
+  );
+
   return (
-    <AppContext.Provider value={dispatch}>
+    <AppContext.Provider value={value}>
       <h1>App.hooks.js</h1>
-      <Box isYellow={isYellow} depth={12} />
+      <Box depth={12} />
     </AppContext.Provider>
   );
 }

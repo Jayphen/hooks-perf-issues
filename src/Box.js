@@ -1,4 +1,5 @@
 import React from "react";
+import AppContext from "./AppContext";
 import Button from "./Button";
 const base = {
   width: "100%",
@@ -17,7 +18,9 @@ const row = {
   display: "flex",
   flexDirection: "row"
 };
-const Box = ({ depth = 0, isYellow }) => {
+const Box = ({ depth = 0 }) => {
+  const { isYellow } = React.useContext(AppContext);
+
   return (
     <div style={isYellow ? yellow : white}>
       <Button />

@@ -1,5 +1,5 @@
 import React, { memo, useContext, useCallback } from "react";
-import AppContext from './AppContext';
+import AppContext from "./AppContext";
 
 const style = {
   cursor: "pointer",
@@ -8,11 +8,9 @@ const style = {
   height: "7.69vh"
 };
 
-export default memo(() => {
-  const dispatch = useContext(AppContext);
-
+const Toggler = memo(props => {
   const handleClick = useCallback(() => {
-    dispatch('toggle');
+    props.dispatch("toggle");
   }, []);
 
   // do some expensive work calculating the button guarded by the memo
@@ -22,3 +20,10 @@ export default memo(() => {
   }
   return <div style={style} onClick={handleClick} />;
 });
+
+export default () => {
+  // useContext will re-render whenever isYellow changes
+  const { dispatch } = useContext(AppContext);
+
+  return <Toggler dispatch={dispatch} />;
+};
